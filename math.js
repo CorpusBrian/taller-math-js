@@ -29,11 +29,19 @@ const alturaTriangulo = 5.5;
 const perimetroTriangulo = ladoTriangulo1 + ladoTriangulo2 + ladoTrianguloBase;
 const areaTriangulo = (ladoTrianguloBase * alturaTriangulo) / 2;
 
-function calcularTriangulo(lado1, lado2, base, altura){
+function calcularTriangulo(lado1, lado2, base, altura) {
     return {
         perimetro: lado1 + lado2 + base,
         area: (base * altura) / 2,
     };
+}
+
+function calcularAlturaTriangulo(lado, base) {
+    if (lado == base) {
+        console.warn('Este no es un triangulo isosceles');
+    } else {
+        return Math.sqrt((lado ** 2) - ((base ** 2) / 4));
+    }
 }
 
 console.log({
