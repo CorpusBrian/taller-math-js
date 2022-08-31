@@ -9,24 +9,38 @@ function calcularPrecioConDescuento() {
 
     const price = Number(inputPrice.value);
     const coupon = inputCoupon.value;
-    let newPrice = 0;
 
     if (!price || !coupon) {
         pResult.innerText = 'Por favor llena el formulario!';
         return;
     }
 
-    let allCoupons = [ {description: 'holidays', discount: 15},
-        {description: 'firstpurchase', discount: 25},
-        {description: 'blackfriday', discount: 30},
-        {description: 'supersales', discount: 40}
+    let discount = 0;
+
+    const allCoupons = [ {name: 'holidays', discount: 15},
+        {name: 'firstpurchase', discount: 25},
+        {name: 'blackfriday', discount: 30},
+        {name: 'supersales', discount: 40}
     ];
 
-    for (let i = 0; i < allCoupons.length; i++) {
-            coupon == allCoupons[i].description ? (
-            newPrice = (price * (100 - allCoupons[i].discount)) / 100,
-            pResult.innerText = 'El nuevo precio con descuento es $' + newPrice,
-            i += allCoupons.length
-        ) : pResult.innerText = 'El cupón no es válido';
+    const couponInArray = allCoupons.find(function (couponElement) { // {name, dicount}
+        return couponElement.name == coupon;
+    });  
+
+    if (couponInArray) {
+        discount = couponInArray.discount;
+    } else {
+        pResult.innerText = 'El cupón no es válido';
+        return;
     }
+
+    console.log({
+        coupon,
+        discount,
+        couponInArray,
+        allCoupons,
+    });
+
+    const newPrice = (price * (100 - discount)) / 100;
+    pResult.innerText = 'El nuevo precio con descuento es $' + newPrice;
 }
